@@ -1,15 +1,25 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import Colors from '@/constants/Colors';
+import { View } from 'react-native';
 
 export default function TabLayout() {
   return (
-    <Tabs>
+    <Tabs screenOptions={{
+      tabBarStyle: {
+        backgroundColor: Colors.bgColor,
+        borderTopWidth: 0,
+        padding: 0
+      },
+      tabBarShowLabel: false,
+      tabBarInactiveTintColor: "#999",
+    }}>
       <Tabs.Screen
         name="index"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="compass" color={ color } size={25} />
+            <Ionicons name="compass" color={ color } size={25} />   //props color: icon's color to be dynamically controlled
           )
         }}
       />
@@ -21,10 +31,20 @@ export default function TabLayout() {
           )
         }} />
       <Tabs.Screen
-        name="profile"
+        name="search"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="person" color={ color } size={25} />
+            <View
+              style={{
+                backgroundColor: Colors.primaryColor,
+                paddingHorizontal: 16,
+                paddingVertical: 12,
+                borderRadius: 50,
+                height: 50,
+              }}
+            >
+              <Ionicons name="search-outline" size={24} color={Colors.white} />
+            </View>
           )
         }} />
       <Tabs.Screen
@@ -35,10 +55,10 @@ export default function TabLayout() {
           )
         }} />
       <Tabs.Screen
-        name="search"
+        name="profile"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="search" color={color} size={25} />
+            <Ionicons name="person" color={ color } size={25} />
           )
         }} />
     </Tabs>
