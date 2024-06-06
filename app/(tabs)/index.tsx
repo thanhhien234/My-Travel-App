@@ -1,13 +1,28 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import { Stack } from 'expo-router'
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 import CategoryButtons from "../../components/CategoryButtons";
+import LocationList from "../../components/LocationList";
+import locationList from "../../data/locationList.json";
 
 const Page = () => {
     const headerHeight = useHeaderHeight();
+    const [sortList, setSortList] = useState(locationList);
+
+    const onCategoryChange = (category: string) => {
+        const sortedLocationList = sortLocationList(locationList, category);
+        setSortList(sortedLocationList);
+    };
+    const sortLocationList = (list: any[], category: string) => {
+        if (category !== 'All') {
+            list = list.filter(item => item.category === category);
+        }
+        return list.sort((a, b) => a.name.localeCompare(b.name));
+    };
+
     return (
         <>
             <Stack.Screen options={{
@@ -59,7 +74,8 @@ const Page = () => {
                     </TouchableOpacity>
                 </View>
 
-                <CategoryButtons />
+                <CategoryButtons onCategoryChange={onCategoryChange}/>
+                <LocationList locationList={sortList}/>
 
                 <View>
                      {/* for list */}

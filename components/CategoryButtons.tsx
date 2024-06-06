@@ -4,13 +4,18 @@ import categories from "../data/categories";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from "../constants/Colors";
 
-const CategoryButtons = () => {
+type Props = {
+    onCategoryChange: (category: string) => void;
+
+}
+const CategoryButtons = ({onCategoryChange} : Props) => {
     const itemRef = useRef<TouchableOpacity[]>([]);  // useRef를 사용하여 TouchableOpacity 배열을 만들어서 각각의 요소에 접근할 수 있다.
     const [activeIndex, setActiveIndex] = useState(0);
 
     const handleSelectCategory = (index: number) => {
         setActiveIndex(index);
         // console.log(categories[index].name);
+        onCategoryChange(categories[index].name);
     };
 
     return (
