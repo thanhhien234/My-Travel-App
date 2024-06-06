@@ -4,6 +4,7 @@ import { Stack } from 'expo-router'
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { useHeaderHeight } from "@react-navigation/elements";
+import CategoryButtons from "../../components/CategoryButtons";
 
 const Page = () => {
     const headerHeight = useHeaderHeight();
@@ -57,6 +58,8 @@ const Page = () => {
                         <Ionicons name="options" size={28} color={Colors.white} />
                     </TouchableOpacity>
                 </View>
+
+                <CategoryButtons />
 
                 <View>
                      {/* for list */}
