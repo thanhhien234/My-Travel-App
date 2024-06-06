@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Image, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 type Props = {
     locationList: any[];
@@ -24,17 +25,20 @@ const LocationList = ({ locationList}: Props) => {
                     data={loading ? [] : locationList}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity style={styles.touchableArea}>
-                                <Image source={{ uri: item.image }} style={styles.image} />
-                                <Text style={{ fontWeight: "bold" }}>{item.name}</Text>
-                                <View style={styles.locationInfo}>
-                                    <View style={{ flexDirection: "row" }}>
-                                        <Ionicons name="location" size={22} color={"#ff7f36"} />
-                                        <Text>{item.location}</Text>
+                            // wrap TouchableOpacity in Link -> detail page로 이동
+                            <Link href={`/detail/${item.id}`} asChild>
+                                <TouchableOpacity style={styles.touchableArea}>
+                                    <Image source={{ uri: item.image }} style={styles.image} />
+                                    <Text style={{ fontWeight: "bold" }}>{item.name}</Text>
+                                    <View style={styles.locationInfo}>
+                                        <View style={{ flexDirection: "row" }}>
+                                            <Ionicons name="location" size={22} color={"#ff7f36"} />
+                                            <Text>{item.location}</Text>
+                                        </View>
+                                        <Text>{item.price}$</Text>
                                     </View>
-                                    <Text>{item.price}$</Text>
-                                </View>
-                            </TouchableOpacity>
+                                </TouchableOpacity>
+                            </Link>
                         );
                     }}
                     horizontal={true}
